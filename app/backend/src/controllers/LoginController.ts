@@ -1,4 +1,4 @@
-import { NextFunction, Response } from 'express';
+import { NextFunction, Response, Request } from 'express';
 import LoginService from '../services/LoginService';
 import ReqValidation from '../interfaces/ReqValidation';
 
@@ -20,5 +20,8 @@ export default class LoginController {
     }
   }
 
-  // public async roleValidate(){}
+  public static async roleValidate(req: Request, res: Response) {
+    const { role } = res.locals;
+    return res.status(200).json({ role });
+  }
 }

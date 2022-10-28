@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { sign, verify } from 'jsonwebtoken';
+import { JwtPayload, sign, verify } from 'jsonwebtoken';
 import IUser from '../interfaces/IUser';
 
 export default class Jwt {
@@ -16,6 +16,6 @@ export default class Jwt {
 
   public authorization(token: string) {
     const payload = verify(token, this._jwtSecret);
-    return payload;
+    return payload as JwtPayload;
   }
 }
