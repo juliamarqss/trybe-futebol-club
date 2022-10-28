@@ -3,12 +3,12 @@ import db from '.';
 import TeamModel from './TeamModel';
 
 export default class MatchModel extends Model {
-  declare id: number;
-  declare homeTeam: number;
-  declare homeTeamGoals: number;
-  declare awayTeam: number;
-  declare awayTeamGoals: number;
-  declare inProgress: boolean;
+  id!: number;
+  homeTeam!: number;
+  homeTeamGoals!: number;
+  awayTeam!: number;
+  awayTeamGoals!: number;
+  inProgress!: boolean;
 }
 
 MatchModel.init({
