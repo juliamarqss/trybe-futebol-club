@@ -2,6 +2,7 @@ import ILogin from '../interfaces/ILogin';
 import UserModel from '../database/models/UserModel';
 import CryptoWithBcrypto from '../utils/CryptoWithBcrypt';
 import Jwt from '../utils/Jwt';
+import GeneratorError from '../utils/GeneratorError';
 
 export default class LoginService {
   private _userModel = UserModel;
@@ -10,8 +11,14 @@ export default class LoginService {
     const { email, password } = userLogin;
     const findUser = await this._userModel.findOne({ where: { email }, raw: true });
 
-    if (!findUser || !CryptoWithBcrypto.compare(password, findUser.password)) {
-      return { status: 401, message: 'Incorrect email or password' };
+    if (!findUser) {
+      throw new GeneratorError(401, 'Incorrect email or password');
+    }
+
+    const passwordEncrypted = CryptoWithBcrypto.compare(password, findUser.password);
+
+    if (!passwordEncrypted) {
+      throw new GeneratorError(401, 'Incorrect email or password');
     }
 
     const payload = {
