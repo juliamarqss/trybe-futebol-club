@@ -46,13 +46,12 @@ export default class MatchService {
     );
   }
 
-  public async update(id: number, scoreboard: IGoals) {
+  public async update(id: number, scoreboard: IGoals): Promise<void> {
     const { homeTeamGoals, awayTeamGoals } = scoreboard;
 
-    const [result] = await this._teamModel.update(
+    await this._matchModel.update(
       { homeTeamGoals, awayTeamGoals },
       { where: { id } },
     );
-    return result;
   }
 }
