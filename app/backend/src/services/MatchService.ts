@@ -1,5 +1,7 @@
 import TeamModel from '../database/models/TeamModel';
 import MatchModel from '../database/models/MatchModel';
+import INewMatch from '../interfaces/INewMatch';
+import IGoals from '../interfaces/IGoals';
 
 export default class MatchService {
   private _matchModel = MatchModel;
@@ -25,5 +27,32 @@ export default class MatchService {
       ],
     });
     return findMatches;
+  }
+
+  public async createMatch(newMatch: INewMatch) {
+    const payload = {
+      ...newMatch,
+      inProgress: true,
+    };
+
+    const create = await this._matchModel.create(payload);
+    return create;
+  }
+
+  public async matchFinish(id: number): Promise<void> {
+    await this._matchModel.update(
+      { inProgress: false },
+      { where: { id } },
+    );
+  }
+
+  public async update(id: number, scoreboard: IGoals) {
+    const { homeTeamGoals, awayTeamGoals } = scoreboard;
+
+    const [result] = await this._teamModel.update(
+      { homeTeamGoals, awayTeamGoals },
+      { where: { id } },
+    );
+    return result;
   }
 }
