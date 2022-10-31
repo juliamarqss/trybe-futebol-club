@@ -12,7 +12,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Testa o endpoint "/teams', () => {
+describe('Testa o endpoint "/teams"', () => {
   describe('GET /teams', () => {
     before(async () => {
       sinon.stub(TeamModel, 'findAll').resolves(teams as TeamModel[]);

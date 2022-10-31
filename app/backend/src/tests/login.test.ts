@@ -12,7 +12,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Testa o endpoint "/login', () => {
+describe('Testa o endpoint "/login"', () => {
   describe('POST /login', () => {
     before(async () => {
       sinon.stub(UserModel, 'findOne').resolves(user as UserModel);
@@ -50,9 +50,10 @@ describe('Testa o endpoint "/login', () => {
     it('Testa se não é possível cadastar com email e senha inválida', async () => {
       const response = await chai.request(app).post('/login').send(loginInvalid);
 
-      const { status } = response;
+      const { status, body } = response;
 
       expect(status).to.equal(401);
+      expect(body).to.have.property('Incorrect email or password');
     })
   })
 
@@ -81,7 +82,7 @@ describe('Testa o endpoint "/login', () => {
       const { status, body } = response;
 
       expect(status).to.be.equal(401);
-      expect(body).to.have.property('message');
+      expect(body).to.have.property('Incorrect email or password');
     })
 
     it('Testa se retorna mensagem quando o token está vazio', async () => {
@@ -90,7 +91,7 @@ describe('Testa o endpoint "/login', () => {
       const { status, body } = response;
 
       expect(status).to.be.equal(401);
-      expect(body).to.have.property('message');
+      expect(body).to.have.property('Incorrect email or password');
     })
   })
 });

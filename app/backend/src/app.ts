@@ -1,5 +1,6 @@
 import * as express from 'express';
 import ErrorMiddleware from './middleware/ErrorMiddleware';
+import leaderboardRouter from './routers/LeaderboardRouter';
 import loginRouter from './routers/LoginRouter';
 import matchRouter from './routers/MatchRouter';
 import teamRouter from './routers/TeamRouter';
@@ -29,6 +30,7 @@ class App {
     this.app.use(loginRouter);
     this.app.use(teamRouter);
     this.app.use(matchRouter);
+    this.app.use(leaderboardRouter);
     this.app.use(ErrorMiddleware.statusMessage);
   }
 
