@@ -45,4 +45,5 @@ npm run compose:up
 npm run test:coverage
 ```
 <br/>
+
 Desenvolvido por: [Júlia Marques](https://www.linkedin.com/in/marques-julia/).
